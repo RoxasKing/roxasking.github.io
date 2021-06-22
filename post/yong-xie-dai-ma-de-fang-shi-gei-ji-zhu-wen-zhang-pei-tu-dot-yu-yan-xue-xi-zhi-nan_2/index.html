@@ -1,0 +1,204 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>用写代码的方式，给技术文章配图！DOT语言入门指引(二) | RoxasKing&#39;s Blog</title>
+<link rel="shortcut icon" href="https://roxasking.github.io/favicon.ico?v=1624361289790">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://roxasking.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="用写代码的方式，给技术文章配图！DOT语言入门指引(二) | RoxasKing&#39;s Blog - Atom Feed" href="https://roxasking.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="&gt;&gt;&gt; 常用属性声明
+所有属性声明皆为 键值对，即 name=value
+strict digraph {
+	Hello [color=green] // 为节点声明
+	world [color=orange]
+	Hell..." />
+    <meta name="keywords" content="DOT,Graphviz" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://roxasking.github.io">
+  <img class="avatar" src="https://roxasking.github.io/images/avatar.png?v=1624361289790" alt="">
+  </a>
+  <h1 class="site-title">
+    RoxasKing&#39;s Blog
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/RoxasKing" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              用写代码的方式，给技术文章配图！DOT语言入门指引(二)
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-06-22
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+                <a href="https://roxasking.github.io/tag/vKIt_KdKJ/" class="post-tag">
+                  # DOT
+                </a>
+              
+                <a href="https://roxasking.github.io/tag/-85mg_LqNY/" class="post-tag">
+                  # Graphviz
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://roxasking.github.io/post-images/yong-xie-dai-ma-de-fang-shi-gei-ji-zhu-wen-zhang-pei-tu-dot-yu-yan-xue-xi-zhi-nan_2.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="常用属性声明">&gt;&gt;&gt; 常用属性声明</h2>
+<p>所有属性声明皆为 键值对，即 name=value</p>
+<pre><code class="language-dot">strict digraph {
+	Hello [color=green] // 为节点声明
+	world [color=orange]
+	Hello -&gt; world [color=red] // 为边声明
+	world -&gt; Hello [arrowhead=diamond]
+}
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://roxasking.github.io/post-images/1624354798516.png" alt="" loading="lazy"></figure>
+<h3 id="图片背景色-bgcolor">&gt;&gt; 图片背景色 <strong>bgcolor</strong></h3>
+<p>可以直接指定颜色名<br>
+<img src="https://roxasking.github.io/post-images/1624358967912.png" alt="" loading="lazy"><br>
+也可以使用RGB颜色代码的方式，比如HEX格式<br>
+<img src="https://roxasking.github.io/post-images/1624359195015.png" alt="" loading="lazy"><br>
+或者HSV格式<br>
+<img src="https://roxasking.github.io/post-images/1624359712910.png" alt="" loading="lazy"></p>
+<h3 id="节点外框-边颜色-color">&gt;&gt; 节点外框、边颜色 <strong>color</strong></h3>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7%E5%A3%B0%E6%98%8E">&gt;&gt;&gt; 常用属性声明</a>
+<ul>
+<li><a href="#%E5%9B%BE%E7%89%87%E8%83%8C%E6%99%AF%E8%89%B2-bgcolor">&gt;&gt; 图片背景色 <strong>bgcolor</strong></a></li>
+<li><a href="#%E8%8A%82%E7%82%B9%E5%A4%96%E6%A1%86-%E8%BE%B9%E9%A2%9C%E8%89%B2-color">&gt;&gt; 节点外框、边颜色 <strong>color</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://roxasking.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

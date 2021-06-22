@@ -1,0 +1,356 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>用写代码的方式，给技术文章配图！DOT语言入门指引(一) | RoxasKing&#39;s Blog</title>
+<link rel="shortcut icon" href="https://roxasking.github.io/favicon.ico?v=1624361289790">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://roxasking.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="用写代码的方式，给技术文章配图！DOT语言入门指引(一) | RoxasKing&#39;s Blog - Atom Feed" href="https://roxasking.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="写技术文章难免会遇到需要画配图的时候，比如思维导图、ER图、有限状态机等，相应的画图工具也不少。但是并非所有人都习惯用鼠标作图，更别说一些不错的画图工具还有着不低的学习成本。所以，问题来了，有更适合码农的作图工具么？你可以试试Graphvi..." />
+    <meta name="keywords" content="DOT,Graphviz" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://roxasking.github.io">
+  <img class="avatar" src="https://roxasking.github.io/images/avatar.png?v=1624361289790" alt="">
+  </a>
+  <h1 class="site-title">
+    RoxasKing&#39;s Blog
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/RoxasKing" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              用写代码的方式，给技术文章配图！DOT语言入门指引(一)
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-06-22
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://roxasking.github.io/tag/vKIt_KdKJ/" class="post-tag">
+                  # DOT
+                </a>
+              
+                <a href="https://roxasking.github.io/tag/-85mg_LqNY/" class="post-tag">
+                  # Graphviz
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://roxasking.github.io/post-images/yong-xie-dai-ma-de-fang-shi-gei-ji-zhu-wen-zhang-pei-tu-dot-yu-yan-xue-xi-zhi-nan_1.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>写技术文章难免会遇到需要画配图的时候，比如思维导图、ER图、有限状态机等，相应的画图工具也不少。但是并非所有人都习惯用鼠标作图，更别说一些不错的画图工具还有着不低的学习成本。所以，问题来了，有更适合码农的作图工具么？你可以试试Graphviz DOT语言，用写代码的方式画图！</p>
+<hr>
+<h2 id="安装graphviz">&gt;&gt;&gt; 安装Graphviz</h2>
+<p>如果是Debian系操作系统(Debian、Ubuntu)，使用apt包管理器</p>
+<pre><code class="language-sh">$ sudo apt install graphviz
+</code></pre>
+<p>如果是红帽系的发行版(Redhat、CentOS、Fedora)，则用yum包管理器</p>
+<pre><code class="language-sh">$ sudo yum install graphviz
+</code></pre>
+<p>非Linux发行版的，参见 <a href="https://graphviz.org/download/">官方指导</a></p>
+<p>如果安装成功，命令行输入 dot -V，就会打印出当前的版本信息</p>
+<pre><code class="language-sh">$ dot -V
+dot - graphviz version 2.43.0 (0)
+</code></pre>
+<h2 id="hello-world">&gt;&gt;&gt; Hello world!</h2>
+<p>让我们先写出第一段代码吧</p>
+<pre><code class="language-sh">echo 'digraph { Hello -&gt; world }' | dot -Tsvg &gt; output.svg
+</code></pre>
+<p><img src="https://roxasking.github.io/post-images/1624330867289.png" alt="" loading="lazy"><br>
+很好！dot命令行通过解析 'digraph { Hello -&gt; world }' 生成svg格式图像，并保存在指定文件中。我们通过dot语言描述对象间的关系，即可生成我们想要的关系图，是不是很nice🎉</p>
+<hr>
+<h2 id="dot命令行">&gt;&gt;&gt; DOT命令行</h2>
+<p>dot命令行的使用格式如下</p>
+<pre><code class="language-sh">dot [-(GNE)name=val] [-(KTlso)&lt;val&gt;] &lt;dot files&gt;
+</code></pre>
+<h3 id="-gname-value">-<strong>G</strong><em>name</em> [=<em>value</em>]</h3>
+<p>用于设置图片属性，比如给图片添加标签、标签字体颜色等，如下命令会给图标注红色字体的名字</p>
+<pre><code class="language-sh">echo 'digraph { Hello -&gt; world }' | \
+dot -Tsvg -Gfontcolor=red -Glabel=&quot;red font label&quot; &gt; output.svg
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://roxasking.github.io/post-images/1624333298957.png" alt="" loading="lazy"></figure>
+<h3 id="-nnamevalue">-<strong>N</strong><em>name</em>[=<em>value</em>]</h3>
+<p>用于设置节点的属性，比如设置节点的形状、节点字体颜色等，如下命令会将节点设置为圆形，节点内的文字变为蓝色</p>
+<pre><code class="language-sh">echo 'digraph { Hello -&gt; world }' | \
+dot -Tsvg -Nfontcolor=blue -Nshape=circle &gt; output.svg
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://roxasking.github.io/post-images/1624333949153.png" alt="" loading="lazy"></figure>
+<h3 id="-enamevalue">-<strong>E</strong><em>name</em>[=<em>value</em>]</h3>
+<p>用于给节点之间的箭头设置属性，比如箭头颜色，箭头形状等，如下命令会将箭头设置为红色和无形状</p>
+<pre><code class="language-sh">echo 'digraph { Hello -&gt; world }' |  \
+dot -Tsvg -Ecolor=red -Earrowhead=none &gt; output.svg
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://roxasking.github.io/post-images/1624334898437.png" alt="" loading="lazy"></figure>
+<h3 id="-klayout">-<strong>K</strong><em>layout</em></h3>
+<p>用于指定默认的布局引擎，覆盖命令行的默认值，比如用sfdp代替默认的dot，目前先pass~</p>
+<pre><code class="language-sh">echo 'digraph { Hello -&gt; world }' |  \
+dot -Tsvg -Ksfdp &gt; output.svg
+</code></pre>
+<h3 id="-tformatrendererformatter">-<strong>T</strong><em>format</em>[:<em>renderer</em>[:<em>formatter</em>]]</h3>
+<p>用于指定输出的格式，默认为dot格式，但我们可以指定为其它，比如png、jpg、bmp等，后面加 : 还能指定渲染器以及格式，功能极为强大，官网也罗列了所有 <a href="https://graphviz.org/docs/outputs/">支持的格式</a>，各位可自行尝试</p>
+<h3 id="-llibrary">-<strong>l</strong><em>library</em></h3>
+<p>用于指定用户提供的依赖于设备的库文本，具体怎么使用目前先pass~</p>
+<h3 id="-nnum">-<strong>n</strong>[<em>num</em>]</h3>
+<p>当布局引擎指定为neato，且所有节点都设置了位置属性时可用，可以用于消除节点之间的重叠，具体怎么使用目前先pass~</p>
+<h3 id="-ooutfile">-<strong>o</strong><em>outfile</em></h3>
+<p>用于指定输出文件，不加的话默认是标准输出，比如如下命令输出到helloworld.svg文件中</p>
+<pre><code class="language-sh">echo 'digraph { Hello -&gt; world }' |  \
+dot -Tsvg -o helloword.svg
+# 功能几乎相当于
+echo 'digraph { Hello -&gt; world }' |  \
+dot -Tsvg &gt; helloword.svg
+</code></pre>
+<h3 id="-o">-<strong>O</strong></h3>
+<p>自动的根据指定输出类型输出文件，比如用如下命令</p>
+<pre><code class="language-sh">echo 'digraph { Hello -&gt; world }' |  \
+dot -Tpng -O
+</code></pre>
+<p>我们会得到一个名为 noname.gv.png 的输出文件</p>
+<h3 id="-p">-<strong>P</strong></h3>
+<p>自动生成一个图形，显示当前可执行文件的插件配置，比如用如下命令</p>
+<pre><code class="language-sh">dot -P -Tsvg -o plugins.svg
+</code></pre>
+<p>会生成一个超大的描述图<br>
+<img src="https://roxasking.github.io/post-images/1624338931353.svg" alt="" loading="lazy"><br>
+额，这也太详细了吧😱</p>
+<h3 id="-q">-<strong>q</strong></h3>
+<p>忽略警告信息，比如我们给某个节点指定个不存在的形状，不加 -q 时会输出如下警告</p>
+<pre><code class="language-sh">$ echo 'digraph { Hello -&gt; world }' | \
+dot -Tsvg -Nfontcolor=blue -Nshape=hahaha &gt; output.svg
+Warning: using box for unknown shape hahaha
+</code></pre>
+<p>而加了 -q 标签时会如下</p>
+<pre><code class="language-sh">$ echo 'digraph { Hello -&gt; world }' | \
+dot -Tsvg -Nfontcolor=blue -Nshape=hahaha &gt; output.svg
+</code></pre>
+<h3 id="-sscale">-<strong>s</strong>[<em>scale</em>]</h3>
+<p>当布局引擎指定为neato或fdp时会用上，默认为72，具体怎么使用目前暂时pass~</p>
+<h3 id="-x">-<strong>x</strong></h3>
+<p>依然是neato引擎专属，目前先pass~</p>
+<h3 id="-y">-<strong>y</strong></h3>
+<p>用于输出时反转y坐标轴，即将默认使用的标准笛卡尔坐标系(原点位于左下角，y轴自下而上递增)的y轴，变为自上而下递增。</p>
+<hr>
+<h2 id="编辑器">&gt;&gt;&gt; 编辑器</h2>
+<p>工欲善其事，必先利其器！直接使用命令行编辑确实可以，但是好的工具可以让我们事半功倍</p>
+<p>你可以选择使用官方提供的在线可视化编辑器 <a href="http://magjac.com/graphviz-visual-editor/">Graphviz Visual Editor</a></p>
+<p>或者使用VSCode + Graphviz (dot) language support for Visual Studio Code 扩展，使用效果如下<br>
+<img src="https://roxasking.github.io/post-images/1624348059658.png" alt="" loading="lazy"><br>
+右边的预览，输入F2，然后搜索 graphviz，选 Open Preview to the Side 即可打卡</p>
+<hr>
+<h2 id="dot语法基础">&gt;&gt;&gt; DOT语法基础</h2>
+<h3 id="关键字大小写无关">&gt;&gt; 关键字大小写无关</h3>
+<p>关键字 <strong>node</strong>, <strong>edge</strong>, <strong>graph</strong>, <strong>digraph</strong>, <strong>subgraph</strong>, <strong>strict</strong>无所谓，比如这样</p>
+<pre><code class="language-dot">digraph {
+	node [label=&quot;\N&quot;]
+	edge [arrowhead=&quot;none&quot;]
+	Hello -&gt; world
+}
+</code></pre>
+<p>或者这样</p>
+<pre><code class="language-dot">Digraph {
+	Node [label=&quot;\N&quot;]
+	Edge [arrowhead=&quot;none&quot;]
+	Hello -&gt; world
+}
+</code></pre>
+<p>均不影响图像的生成，但是个人还是强烈建议使用小写，因为大写的话VSCode就没语法高亮了<br>
+<img src="https://roxasking.github.io/post-images/1624349045586.png" alt="" loading="lazy"></p>
+<h3 id="有向图无向图">&gt;&gt; 有向图&amp;无向图</h3>
+<p><strong>digraph</strong> 是有向图的声明， <strong>graph</strong> 是无向图的声明</p>
+<p>使用 <strong>digraph</strong> 声明时，节点之间用 <strong>-&gt;</strong> 连接</p>
+<pre><code class="language-dot">digraph {
+	2 -&gt; 1 [color = red]
+	2 -&gt; 3 [color = blue]
+}
+</code></pre>
+<p>使用 <strong>graph</strong> 声明时，节点之间用 <strong>--</strong> 连接</p>
+<pre><code class="language-dot">graph {
+	2 -- 1 [color = red]
+	2 -- 3 [color = blue]
+}
+</code></pre>
+<p>digraph(或graph)前面可以加 <strong>strict</strong> 关键字，而效果对比则非常直观<br>
+<img src="https://roxasking.github.io/post-images/1624353109248.png" alt="" loading="lazy"><br>
+<img src="https://roxasking.github.io/post-images/1624353117682.png" alt="" loading="lazy"></p>
+<p>使用 <strong>strict</strong> 关键字后，一条边声明大于1次时，最终效果依然只有1条，且生效的会是那条边的最后一次声明，比如如下代码，生效的是蓝色边<br>
+<img src="https://roxasking.github.io/post-images/1624353398424.png" alt="" loading="lazy"></p>
+<p>值得一提的是，有向图 <strong>digraph</strong> 两节点之间可以创建两条不同方向的边，而 无向图 <strong>graph</strong> 则只能创建一条<br>
+<img src="https://roxasking.github.io/post-images/1624353992331.png" alt="" loading="lazy"><br>
+<img src="https://roxasking.github.io/post-images/1624354000421.png" alt="" loading="lazy"></p>
+<h3 id="子图簇">&gt;&gt; 子图&amp;簇</h3>
+<p>我们可以用 <strong>subgraph</strong> {} 来声明一个子图<br>
+<img src="https://roxasking.github.io/post-images/1624355532574.png" alt="" loading="lazy"><br>
+或者可以简写，忽略关键字，用 {} 即可，效果一致<br>
+<img src="https://roxasking.github.io/post-images/1624355829844.png" alt="" loading="lazy"><br>
+这等价于如下语句<br>
+<img src="https://roxasking.github.io/post-images/1624356017066.png" alt="" loading="lazy"><br>
+使用 <strong>subgraph</strong> 可以用于减少代码量，结构化声明<br>
+<img src="https://roxasking.github.io/post-images/1624357375682.png" alt="" loading="lazy"></p>
+<p>若声明子图时，给子图名字加上 <strong>cluster_</strong> 前缀，即簇， 则可以独立声明一些属性，比如<br>
+<img src="https://roxasking.github.io/post-images/1624358779259.png" alt="" loading="lazy"><br>
+可以覆盖主图的设定。使用 <strong>cluster_</strong> 前缀的时候，<strong>subgraph</strong> 不能省略！</p>
+<hr>
+<p>下一篇我将介绍DOT常用属性</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85graphviz">&gt;&gt;&gt; 安装Graphviz</a></li>
+<li><a href="#hello-world">&gt;&gt;&gt; Hello world!</a></li>
+<li><a href="#dot%E5%91%BD%E4%BB%A4%E8%A1%8C">&gt;&gt;&gt; DOT命令行</a>
+<ul>
+<li><a href="#-gname-value">-<strong>G</strong><em>name</em> [=<em>value</em>]</a></li>
+<li><a href="#-nnamevalue">-<strong>N</strong><em>name</em>[=<em>value</em>]</a></li>
+<li><a href="#-enamevalue">-<strong>E</strong><em>name</em>[=<em>value</em>]</a></li>
+<li><a href="#-klayout">-<strong>K</strong><em>layout</em></a></li>
+<li><a href="#-tformatrendererformatter">-<strong>T</strong><em>format</em>[:<em>renderer</em>[:<em>formatter</em>]]</a></li>
+<li><a href="#-llibrary">-<strong>l</strong><em>library</em></a></li>
+<li><a href="#-nnum">-<strong>n</strong>[<em>num</em>]</a></li>
+<li><a href="#-ooutfile">-<strong>o</strong><em>outfile</em></a></li>
+<li><a href="#-o">-<strong>O</strong></a></li>
+<li><a href="#-p">-<strong>P</strong></a></li>
+<li><a href="#-q">-<strong>q</strong></a></li>
+<li><a href="#-sscale">-<strong>s</strong>[<em>scale</em>]</a></li>
+<li><a href="#-x">-<strong>x</strong></a></li>
+<li><a href="#-y">-<strong>y</strong></a></li>
+</ul>
+</li>
+<li><a href="#%E7%BC%96%E8%BE%91%E5%99%A8">&gt;&gt;&gt; 编辑器</a></li>
+<li><a href="#dot%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80">&gt;&gt;&gt; DOT语法基础</a>
+<ul>
+<li><a href="#%E5%85%B3%E9%94%AE%E5%AD%97%E5%A4%A7%E5%B0%8F%E5%86%99%E6%97%A0%E5%85%B3">&gt;&gt; 关键字大小写无关</a></li>
+<li><a href="#%E6%9C%89%E5%90%91%E5%9B%BE%E6%97%A0%E5%90%91%E5%9B%BE">&gt;&gt; 有向图&amp;无向图</a></li>
+<li><a href="#%E5%AD%90%E5%9B%BE%E7%B0%87">&gt;&gt; 子图&amp;簇</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://roxasking.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
