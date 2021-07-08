@@ -2,13 +2,166 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://roxasking.github.io</id>
     <title>RoxasKing&apos;s Blog</title>
-    <updated>2021-06-22T11:28:19.868Z</updated>
+    <updated>2021-07-08T10:54:55.941Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://roxasking.github.io"/>
     <link rel="self" href="https://roxasking.github.io/atom.xml"/>
     <logo>https://roxasking.github.io/images/avatar.png</logo>
     <icon>https://roxasking.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, RoxasKing&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[用写代码的方式，给技术文章配图！DOT语言入门指引(二)]]></title>
+        <id>https://roxasking.github.io/post/yong-xie-dai-ma-de-fang-shi-gei-ji-zhu-wen-zhang-pei-tu-dot-yu-yan-xue-xi-zhi-nan_2/</id>
+        <link href="https://roxasking.github.io/post/yong-xie-dai-ma-de-fang-shi-gei-ji-zhu-wen-zhang-pei-tu-dot-yu-yan-xue-xi-zhi-nan_2/">
+        </link>
+        <updated>2021-07-08T11:15:47.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="常用属性声明">&gt;&gt;&gt; 常用属性声明</h2>
+<p>所有属性声明皆为 键值对，即 name=value 形式，value值为字符串，大部分情况下不加双引号也能生效，但个人建议还是加上，因为加上后在编辑器里区别很明显</p>
+<pre><code class="language-dot">strict digraph {
+	Hello [color = &quot;green&quot;] // 为节点声明
+	world [color = orange]
+	Hello -&gt; world [color= &quot;red&quot;] // 为边声明
+	world -&gt; Hello [arrowhead = &quot;diamond&quot;]
+}
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://roxasking.github.io/post-images/1625641093218.png" alt="" loading="lazy"></figure>
+<hr>
+<h2 id="全局属性">&gt;&gt; 全局属性</h2>
+<p>可以为 node、edge、bgcolor等 设置全局属性，全局属性在subgraph和cluster里也会生效<br>
+<img src="https://roxasking.github.io/post-images/1625640664290.png" alt="" loading="lazy"><br>
+全局属性可以被自定义属性覆盖，示例如下<br>
+<img src="https://roxasking.github.io/post-images/1625640671077.png" alt="" loading="lazy"></p>
+<hr>
+<h3 id="配色方案-colorscheme">&gt;&gt; 配色方案 <strong>colorscheme</strong></h3>
+<p>此属性用来指定配色方案的命名空间，通过使用命名空间里的颜色名便可指定颜色，默认命名空间为 <strong>X11</strong>，而所有可指定的命名空间，以及命名空间下的颜色名，参考 <a href="https://graphviz.org/doc/info/colors.html">官方文档</a><br>
+<img src="https://roxasking.github.io/post-images/1625644658443.png" alt="" loading="lazy"></p>
+<hr>
+<h3 id="背景色-bgcolor">&gt;&gt; 背景色 <strong>bgcolor</strong></h3>
+<p>可以直接指定颜色名<br>
+<img src="https://roxasking.github.io/post-images/1624358967912.png" alt="" loading="lazy"><br>
+也可以使用RGB颜色代码的方式，比如HEX格式<br>
+<img src="https://roxasking.github.io/post-images/1624359195015.png" alt="" loading="lazy"><br>
+或者HSV格式<br>
+<img src="https://roxasking.github.io/post-images/1624359712910.png" alt="" loading="lazy"></p>
+<hr>
+<h3 id="cluster-node-edge颜色-color">&gt;&gt; cluster、node、edge颜色 <strong>color</strong></h3>
+<p>通过属性color，可以给 cluster、node、edge着色，和bgcolor一样有多种指定方式<br>
+<img src="https://roxasking.github.io/post-images/1625631750977.png" alt="" loading="lazy"><br>
+cluster和node默认着色的是边框，如果全局属性 <strong>style</strong> 设置为 <strong>filled</strong> 时，则会填充整体，效果区别非常明显<br>
+<img src="https://roxasking.github.io/post-images/1625664301229.png" alt="" loading="lazy"><br>
+这里不得不提一下，针对cluster，设置 style=&quot;filled&quot; 和 color 后，和bgcolor有类似的填充效果，但是区别依然非常明显！bgcolor并不会对边框进行着色，而且bgcolor会被 style=&quot;filled&quot; 的 color 覆盖掉！<br>
+<img src="https://roxasking.github.io/post-images/1625664956066.svg" alt="" loading="lazy"></p>
+<pre><code>// 源码
+digraph {
+	bgcolor=&quot;yellow&quot;
+	subgraph cluster_a {
+		node [style=&quot;filled&quot;]
+		style = &quot;filled&quot;
+		color = &quot;red&quot;
+		A [color = &quot;blue&quot;]
+		B [color = &quot;pink&quot;]
+	}
+	subgraph cluster_b {
+		node [style=&quot;filled&quot;]
+		bgcolor = &quot;red&quot;
+		C [color = &quot;blue&quot;]
+		D [color = &quot;pink&quot;]
+	}
+	subgraph cluster_c {
+		bgcolor = &quot;red&quot;
+		style = &quot;filled&quot;
+		color = &quot;green&quot;
+		node [style=&quot;filled&quot;]
+		E [color = &quot;blue&quot;]
+		F [color = &quot;pink&quot;]
+	}
+}
+</code></pre>
+<hr>
+<h3 id="字体名-fontname">&gt;&gt; 字体名 <strong>fontname</strong></h3>
+<p><strong>注意！</strong> 标签带有中文字体时，必须要指定中文字体！若不指定中文字体，导出图片时字体会乱码！<br>
+<img src="https://roxasking.github.io/post-images/1625737306953.png" alt="" loading="lazy"><br>
+这里是给graph的label指定字体，若要给 node、edge、cluster指定，可以用全局属性，也可以单独设置<br>
+<img src="https://roxasking.github.io/post-images/1625737533734.png" alt="" loading="lazy"></p>
+<hr>
+<h3 id="字体颜色-fontcolor">&gt;&gt; 字体颜色 <strong>fontcolor</strong></h3>
+<p>可以为 graph、cluster、edge、node 设置字体颜色，默认为黑色，支持全局属性<br>
+<img src="https://roxasking.github.io/post-images/1625666075176.png" alt="" loading="lazy"></p>
+<hr>
+<h3 id="node高度-height">&gt;&gt; node高度 <strong>height</strong></h3>
+<p>若未给node设置规则形状时，node的高度是根据标签内容动态增长的，但也可以通过 <strong>height</strong> 属性修改。不过若 <strong>height</strong> 值小于容纳标签字体的最小空间时，node高度并不会依据设置的值，而是取能容纳标签字体的最小值(标签非空时，默认取0.5)<br>
+<img src="https://roxasking.github.io/post-images/1625729641974.svg" alt="" loading="lazy"></p>
+<pre><code class="language-dot">strict digraph {
+	&quot;1\n2\n3\n4\n5\n6&quot;
+  	&quot;&quot; [height=0.25]
+  	&quot;0.25&quot; [height=0.25]
+  	&quot;default&quot;
+  	&quot;0.5&quot; [height=0.5]
+  	&quot;1in&quot; [height=1]
+  	&quot;2in&quot; [height=2]
+}
+</code></pre>
+<hr>
+<h3 id="node宽度-width">&gt;&gt; node宽度 <strong>width</strong></h3>
+<p>若未给node设置规则形状时，node的宽度也是和 <strong>height</strong> 一样，根据标签内容动态扩展，我们依然可以通过 <strong>width</strong> 属性修改。不过若 <strong>width</strong> 值小于容纳标签字体的最小空间时，node宽度并不会依据设置的值，而是取能容纳标签字体的最小值(标签非空时，默认取0.75)<br>
+<img src="https://roxasking.github.io/post-images/1625730030105.svg" alt="" loading="lazy"></p>
+<pre><code class="language-dot">strict digraph {
+  &quot;123456789&quot;
+  &quot;d&quot; # default
+  &quot;0.25&quot; [width=0.25]
+  &quot;0.5&quot; [width=0.5]
+  &quot;1&quot; [width=1]
+  &quot;2&quot; [width=2]
+}
+</code></pre>
+<hr>
+<h3 id="node形状-shape">&gt;&gt; node形状 <strong>shape</strong></h3>
+<p>为 node 指定形状，默认是椭圆(ellipse)，可设置的所有形状列表参见 <a href="https://graphviz.org/doc/info/shapes.html">官网链接</a><br>
+<img src="https://roxasking.github.io/post-images/1625732167469.png" alt="" loading="lazy"></p>
+<hr>
+<h3 id="edge方向-dir-有向图digraph专属">&gt;&gt; edge方向 <strong>dir</strong> (有向图digraph专属)</h3>
+<p>可以设置箭头的方向， forward(向前，默认)、back(向后)、both(双向)、none(无，效果类似无向图grapth)<br>
+<img src="https://roxasking.github.io/post-images/1625642805056.png" alt="" loading="lazy"></p>
+<hr>
+<h3 id="edge头部和尾部箭头的形状-arrowhead-arrowtail-有向图digraph专属">&gt;&gt; edge头部和尾部箭头的形状 <strong>arrowhead</strong>、<strong>arrowtail</strong> (有向图digraph专属)</h3>
+<p>可以指定箭头的形状<br>
+<img src="https://roxasking.github.io/post-images/1625642358517.png" alt="" loading="lazy"><br>
+需要注意的是，<strong>arrowtail</strong> 属性必须在 dir 属性为 back 或 both 时，才会生效<br>
+<img src="https://roxasking.github.io/post-images/1625643055172.png" alt="" loading="lazy"></p>
+<hr>
+<h3 id="edge头部和尾部箭头的大小-arrowsize-有向图digraph专属">&gt;&gt; edge头部和尾部箭头的大小 **arrowsize&quot; (有向图digraph专属)</h3>
+<p>可以设置 <strong>arrowhead</strong> 和 <strong>arrowtail</strong> 的大小，默认大小为 1<br>
+<img src="https://roxasking.github.io/post-images/1625643572819.png" alt="" loading="lazy"></p>
+<hr>
+<h3 id="edge权重-weight">&gt;&gt; edge权重 <strong>weight</strong></h3>
+<p>默认值为1，越大，相应的边会越短<br>
+<img src="https://roxasking.github.io/post-images/1625732449932.png" alt="" loading="lazy"></p>
+<hr>
+<h3 id="来个总结">&gt;&gt; 来个总结</h3>
+<p>可自定义的属性远远不止这些，这里 <a href="https://graphviz.org/doc/info/attrs.html">官网链接</a> 涵盖了所有可自定义的属性，不过个人认为常用的属性上面已经覆盖很多了，想更深入学习的话，可以自行尝试更多属性。<br>
+<img src="https://roxasking.github.io/post-images/1625736950310.png" alt="" loading="lazy"></p>
+<pre><code class="language-dot">// OSI七层模型源码
+digraph {
+	fontname=&quot;Sarasa Gothic Sc&quot;
+	label = &quot;OSI七层模型&quot;
+	node[shape=&quot;box&quot; height=0.25 width=1.5 fontname=&quot;Sarasa Gothic Sc&quot;]
+	&quot;物理层(网络硬件)&quot; [width=3.4]
+	&quot;应用层(a)&quot; -&gt; &quot;表示层(a)&quot;
+	&quot;表示层(a)&quot; -&gt; &quot;会话层(a)&quot;
+	&quot;会话层(a)&quot; -&gt; &quot;传输层(a)&quot;
+	&quot;传输层(a)&quot; -&gt; &quot;网络层(a)&quot;
+	&quot;网络层(a)&quot; -&gt; &quot;数据链路层(a)&quot;
+	&quot;数据链路层(a)&quot; -&gt; &quot;物理层(网络硬件)&quot;
+	&quot;应用层(b)&quot; -&gt; &quot;表示层(b)&quot; [dir=&quot;back&quot;]
+	&quot;表示层(b)&quot; -&gt; &quot;会话层(b)&quot; [dir=&quot;back&quot;]
+	&quot;会话层(b)&quot; -&gt; &quot;传输层(b)&quot; [dir=&quot;back&quot;]
+	&quot;传输层(b)&quot; -&gt; &quot;网络层(b)&quot; [dir=&quot;back&quot;]
+	&quot;网络层(b)&quot; -&gt; &quot;数据链路层(b)&quot; [dir=&quot;back&quot;]
+	&quot;数据链路层(b)&quot; -&gt; &quot;物理层(网络硬件)&quot;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[用写代码的方式，给技术文章配图！DOT语言入门指引(一)]]></title>
         <id>https://roxasking.github.io/post/yong-xie-dai-ma-de-fang-shi-gei-ji-zhu-wen-zhang-pei-tu-dot-yu-yan-xue-xi-zhi-nan_1/</id>
@@ -116,7 +269,7 @@ dot -Tsvg -Nfontcolor=blue -Nshape=hahaha &gt; output.svg
 <hr>
 <h2 id="dot语法基础">&gt;&gt;&gt; DOT语法基础</h2>
 <h3 id="关键字大小写无关">&gt;&gt; 关键字大小写无关</h3>
-<p>关键字 <strong>node</strong>, <strong>edge</strong>, <strong>graph</strong>, <strong>digraph</strong>, <strong>subgraph</strong>, <strong>strict</strong>无所谓，比如这样</p>
+<p>关键字 <strong>node</strong>, <strong>edge</strong>, <strong>graph</strong>, <strong>digraph</strong>, <strong>subgraph</strong>, <strong>strict</strong>无所谓大小写，比如这样</p>
 <pre><code class="language-dot">digraph {
 	node [label=&quot;\N&quot;]
 	edge [arrowhead=&quot;none&quot;]
